@@ -159,7 +159,8 @@ with st.sidebar:
 
     # ── 清除 ──────────────────────────────────────────────────────────────────
     st.divider()
-    if st.button("🗑️ 清除記錄", use_container_width=True, type="secondary"):
+    if st.button("↺ 重置介面", use_container_width=True, type="secondary",
+                 help="清除當前對話畫面與搜尋結果。不會修改任何 Wiki 檔案。"):
         st.session_state.llm_messages = []
         st.session_state.saved_files = set()
         st.session_state.retrieval_results = []
