@@ -1,0 +1,33 @@
+# ── macOS ────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── Obsidian ─────────────────────────────────────────────────
+.obsidian/
+
+# ── 環境變數 / API Keys（絕對不能進版控）────────────────────
+dashboard/.env
+.env
+*.env
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# ── Streamlit ────────────────────────────────────────────────
+.streamlit/
+
+# ── 原始資料附件（圖片，通常體積較大）──────────────────────
+raw/assets/
+
+# ── 原始 PDF（體積大的二進位檔案，建議改用 Git LFS 管理）──
+# 若要追蹤 PDF，請移除下一行或改用：git lfs track "*.pdf"
+raw/*.pdf
