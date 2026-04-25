@@ -15,12 +15,15 @@ dashboard/.env
 __pycache__/
 *.py[cod]
 *.pyo
-.venv/
-venv/
-env/
 *.egg-info/
 dist/
 build/
+
+# ── uv 虛擬環境（不進版控，用 uv sync 重建）────────────────
+.venv/
+
+# ── uv 快取（本機快取，不需版控）────────────────────────────
+.uv/
 
 # ── Streamlit ────────────────────────────────────────────────
 .streamlit/

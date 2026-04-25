@@ -38,11 +38,15 @@ Obsidian-Wiki/
 │   ├── concepts/          # 概念、方法論、框架
 │   └── analyses/          # 查詢結果、比較分析、儲存的洞見
 │
+├── pyproject.toml         # uv 專案設定與相依套件清單
+├── uv.lock                # 精確鎖定的套件版本（由 uv 自動維護）
+├── .python-version        # 鎖定 Python 版本（3.12）
+│
 └── dashboard/             # 查詢儀表板（Streamlit App）
     ├── app.py
     ├── providers.py       # LLM Provider 抽象層
     ├── wiki_search.py     # 本地搜尋引擎
-    ├── requirements.txt
+    ├── requirements.txt   # 套件清單（參考用，實際由 uv 管理）
     └── .env.example
 ```
 
@@ -54,7 +58,12 @@ Obsidian-Wiki/
 
 - [Obsidian](https://obsidian.md/)（選用，但強烈推薦用來瀏覽 Wiki）
 - [Claude Code](https://claude.ai/code)（或其他支援此 Schema 的 LLM CLI）
-- Python 3.10+（儀表板用）
+- [uv](https://docs.astral.sh/uv/)（Python 虛擬環境管理工具）
+
+```bash
+# 安裝 uv（若尚未安裝）
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 ### 2. 在 Claude Code 中使用
 
@@ -68,18 +77,22 @@ claude  # 開啟 Claude Code
 ### 3. 啟動查詢儀表板
 
 ```bash
-# 安裝相依套件
-pip install -r dashboard/requirements.txt
+cd /path/to/Obsidian-Wiki
+
+# 首次使用：建立虛擬環境並安裝相依套件
+uv sync
 
 # 設定 API Key（選擇性，純檢索模式不需要）
 cp dashboard/.env.example dashboard/.env
 # 編輯 .env，填入你的 API Key
 
-# 啟動
-streamlit run dashboard/app.py
+# 啟動儀表板
+uv run streamlit run dashboard/app.py
 ```
 
 瀏覽器開啟後預設在 `http://localhost:8501`。
+
+> **換電腦 / 全新環境**：只需執行 `uv sync`，uv 會依照 `uv.lock` 自動還原完全相同的套件版本，無需手動安裝。
 
 ---
 
@@ -162,6 +175,22 @@ cp dashboard/.env.example dashboard/.env
 ```
 
 **方式三：在儀表板介面直接輸入**（不存檔，關閉後失效）
+
+---
+
+## 環境管理（uv）
+
+本專案使用 [uv](https://docs.astral.sh/uv/) 管理 Python 虛擬環境與套件。
+
+| 指令 | 說明 |
+|------|------|
+| `uv sync` | 依 `uv.lock` 安裝所有套件（首次 clone 後執行） |
+| `uv add <套件>` | 新增套件並更新 `pyproject.toml` / `uv.lock` |
+| `uv remove <套件>` | 移除套件 |
+| `uv run <指令>` | 在虛擬環境中執行指令（免手動 activate） |
+| `uv python list` | 列出可用的 Python 版本 |
+
+虛擬環境存放於 `.venv/`（已在 `.gitignore` 排除）。`uv.lock` 則納入版控，確保所有環境套件版本完全一致。
 
 ---
 
