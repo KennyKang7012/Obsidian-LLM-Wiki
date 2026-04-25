@@ -239,17 +239,18 @@ else:
 # ══════════════════════════════════════════════════════════════════════════════
 if mode == "retrieval":
 
-    # ── 搜尋框 ────────────────────────────────────────────────────────────────
-    col_input, col_btn = st.columns([5, 1])
-    with col_input:
-        retrieval_query = st.text_input(
-            "搜尋關鍵字",
-            value=st.session_state.retrieval_query,
-            placeholder="輸入關鍵字搜尋 Wiki，例如：Progressive Disclosure",
-            label_visibility="collapsed",
-        )
-    with col_btn:
-        do_search = st.button("🔍 搜尋", use_container_width=True, type="primary")
+    # ── 搜尋框（用 st.form 讓 Enter 也能送出）────────────────────────────────
+    with st.form("retrieval_form", border=False):
+        col_input, col_btn = st.columns([5, 1])
+        with col_input:
+            retrieval_query = st.text_input(
+                "搜尋關鍵字",
+                value=st.session_state.retrieval_query,
+                placeholder="輸入關鍵字搜尋 Wiki，例如：Progressive Disclosure",
+                label_visibility="collapsed",
+            )
+        with col_btn:
+            do_search = st.form_submit_button("🔍 搜尋", use_container_width=True, type="primary")
 
     if do_search and retrieval_query:
         st.session_state.retrieval_query = retrieval_query

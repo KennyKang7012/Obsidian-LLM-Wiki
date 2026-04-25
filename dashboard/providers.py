@@ -53,7 +53,7 @@ PROVIDERS_CONFIG: dict[str, dict] = {
         "name": "Ollama（本地）",
         "icon": "🦙",
         "models": [],  # 使用者自填
-        "default_model": "llama3.2",
+        "default_model": "gemini-3-flash-preview:latest",
         "needs_api_key": False,
         "needs_base_url": True,
         "env_key": "",
